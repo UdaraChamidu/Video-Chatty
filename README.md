@@ -14,6 +14,8 @@ You can upload a local video file or provide a YouTube link, and the app extract
 
 ---
 
+<img width="1307" height="691" alt="image" src="https://github.com/user-attachments/assets/fc2d94e2-c598-44d2-ab2b-0db1a121c11c" />
+
 ## 🛠️ Technologies Used
 
 - [Streamlit](https://streamlit.io/) — Web app framework for Python
@@ -39,3 +41,4 @@ streamlit run app.py
 - Download Chat as PDF: Add functionality to download the full chat history as a nicely formatted PDF document.
 
 - Sinhala Translation: Implement chat translation features to convert chat content and responses into Sinhala language for localized user experience.
+
