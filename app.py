@@ -192,7 +192,7 @@ source_type = st.radio(
 if source_type == "Upload a video file":
     uploaded_file = st.file_uploader(
         "Choose a video file",
-        type=[' mp4']
+        type=["mp4", "avi", "mov", "mkv", "webm", "MP4", "M4A"],
     )
     if uploaded_file:
         if not is_video_file(uploaded_file):
