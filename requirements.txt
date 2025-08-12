@@ -1,0 +1,7 @@
+streamlit
+google-generativeai
+python-dotenv
+pillow
+youtube-transcript-api
+yt_dlp
+requests
