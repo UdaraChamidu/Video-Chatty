@@ -1,0 +1,15 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+*.log
+*.sqlite3
+.vscode
+.git
+.gitignore
+__MACOSX
+dist
+build
+*.egg-info

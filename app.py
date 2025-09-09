@@ -55,7 +55,13 @@ class VideoProcessor:
 
     def chat_with_video(self, video_file, prompt):
         try:
-            response = self.model.generate_content([video_file, prompt])
+            system_prompt = (
+                "You are a helpful AI assistant that analyzes the provided video content. "
+                "Always base your answers strictly on the video/transcript. "
+                "Be concise, clear, user friendly and accurate. "
+                "If the answer is not in the video, say you cannot find it using the video."
+            )
+            response = self.model.generate_content([video_file, system_prompt, prompt])
             return response.text
         except Exception as e:
             st.error(f"Error generating response: {str(e)}")
