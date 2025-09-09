@@ -1,9 +1,9 @@
-# 🎬 Video Master - Chat with Videos
+# 🎬 Video Chatty - Chat with Videos
 
 Video Master is a Streamlit-based AI app that lets you **chat interactively with videos**.  
 You can upload a local video file or provide a YouTube link, and the app extracts video content (via transcripts or direct processing) to answer your questions using **Google Gemini’s generative AI**.
 
-[![Try App](https://img.shields.io/badge/Try%20App-Click%20Here-brightgreen?style=for-the-badge&logo=streamlit)](http://13.216.1.128:8501)
+[![Open in Browser](https://img.shields.io/badge/Open%20in%20Browser-🌐-blueviolet?style=for-the-badge)](http://13.216.1.128:8501)
 
 ---
 
@@ -38,8 +38,8 @@ You can upload a local video file or provide a YouTube link, and the app extract
 
 ### 🔹 Local Development
 ```bash
-git clone https://github.com/UdaraChamidu/video-master.git
-cd video-master
+git clone https://github.com/UdaraChamidu/video-chatty.git
+cd video-chatty
 pip install -r requirements.txt
 streamlit run app.py
 ```
@@ -49,5 +49,6 @@ streamlit run app.py
 - Download Chat as PDF — Export full chat history as a formatted PDF.
 - Sinhala Translation — Localized experience by translating responses to Sinhala.
 - Nginx/Load Balancer Setup — Custom domain + HTTPS support.
+
 
 
