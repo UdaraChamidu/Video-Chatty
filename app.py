@@ -117,14 +117,15 @@ def get_youtube_captions(video_url):
     video_id = video_id_match.group(1)
 
     ydl_opts = {
-        'skip_download': True,
-        'writesubtitles': True,
-        'writeautomaticsub': True,
-        'subtitleslangs': ['en'],
-        'subtitlesformat': 'vtt',
-        'quiet': True,
-        'outtmpl': '%(id)s.%(ext)s',
-    }
+    'skip_download': True,
+    'writesubtitles': True,
+    'writeautomaticsub': True,
+    'subtitleslangs': ['en'],
+    'subtitlesformat': 'vtt',
+    'quiet': True,
+    'outtmpl': '%(id)s.%(ext)s',
+    'cookiefile': 'cookies.txt',  # 👈 add this
+}
 
     try:
         with YoutubeDL(ydl_opts) as ydl:

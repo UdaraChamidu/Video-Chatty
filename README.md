@@ -3,6 +3,7 @@
 Video Master is a Streamlit-based AI app that lets you **chat interactively with videos**.  
 You can upload a local video file or provide a YouTube link, and the app extracts video content (via transcripts or direct processing) to answer your questions using Google Gemini’s generative AI.
 ## Try : https://video-master.streamlit.app
+
 ---
 
 ## 🚀 Features
