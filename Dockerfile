@@ -24,6 +24,8 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # copy app code
 COPY . /app
+# copy cookies.txt into the container
+COPY cookies.txt /app/cookies.txt
 
 # create non-root user (optional but good practice)
 RUN useradd -m appuser && chown -R appuser:appuser /app
