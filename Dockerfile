@@ -44,3 +44,4 @@ ENV STREAMLIT_SERVER_PORT=${PORT}
 
 # Entrypoint to run streamlit
 CMD ["sh", "-c", "streamlit run app.py --server.port $PORT --server.address 0.0.0.0"]
+
