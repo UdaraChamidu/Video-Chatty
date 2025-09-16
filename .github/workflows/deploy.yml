@@ -1,4 +1,4 @@
-name: Deploy Streamlit App to AWS EC2
+name: Deploy to AWS EC2
 
 on:
   push:
@@ -10,23 +10,31 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.8.0
+    - name: Build Docker image
+      run: docker build -t video-chatty-app .
+
+    - name: Save Docker image to file
+      run: docker save video-chatty-app | gzip > video-chatty-app.tar.gz
+
+    - name: Copy Docker image to EC2
+      uses: appleboy/scp-action@v0.1.7
       with:
-        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        source: "video-chatty-app.tar.gz"
+        target: "~/"
 
-    - name: Copy files to EC2 and build/run Docker
-      run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@3.91.52.125 "
-          mkdir -p ~/video-chatty &&
-          rm -rf ~/video-chatty/*"
-        scp -r ./* ubuntu@3.91.52.125:~/video-chatty/
-        ssh ubuntu@3.91.52.125 "
-          cd ~/video-chatty &&
-          docker stop video-chatty || true &&
-          docker rm video-chatty || true &&
-          docker build -t video-chatty . &&
-          docker run -d --name video-chatty -p 8501:8501 video-chatty
-        "
+    - name: SSH and deploy
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          docker load -i ~/video-chatty-app.tar.gz
+          docker stop video-chatty-app || true
+          docker rm video-chatty-app || true
+          docker run -d --name video-chatty-app -p 80:8501 video-chatty-app
