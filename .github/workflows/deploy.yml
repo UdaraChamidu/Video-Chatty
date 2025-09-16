@@ -1,9 +1,8 @@
-name: Deploy to AWS EC2
+name: Deploy Streamlit App to AWS EC2
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
@@ -13,21 +12,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Install SSH key
+    - name: Set up SSH
       uses: webfactory/ssh-agent@v0.8.0
       with:
         ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-    - name: Copy files to EC2
+    - name: Copy files to EC2 and build/run Docker
       run: |
-        rsync -avz --delete \
-          -e "ssh -o StrictHostKeyChecking=no" \
-          ./ ubuntu@3.91.52.125:/home/ubuntu/video-chatty
-
-    - name: Install dependencies and restart app
-      run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@3.91.52.125 << 'EOF'
-          cd /home/ubuntu/video-chatty
-          npm install --production
-          pm2 restart all || pm2 start npm --name "video-chatty" -- start
-        EOF
+        ssh -o StrictHostKeyChecking=no ubuntu@3.91.52.125 "
+          mkdir -p ~/video-chatty &&
+          rm -rf ~/video-chatty/*"
+        scp -r ./* ubuntu@3.91.52.125:~/video-chatty/
+        ssh ubuntu@3.91.52.125 "
+          cd ~/video-chatty &&
+          docker stop video-chatty || true &&
+          docker rm video-chatty || true &&
+          docker build -t video-chatty . &&
+          docker run -d --name video-chatty -p 8501:8501 video-chatty
+        "
